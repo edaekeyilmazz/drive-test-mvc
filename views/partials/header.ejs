@@ -1,0 +1,25 @@
+<nav>
+    <div class="topnav">
+        <a class="topnav-left" href="/dashboard">Book DriveTest</a>
+        <% if(loggedIn) { %>
+            <a href="/logout">LOGOUT</a>
+
+            <% if(userType == "driver") { %>
+                <a href="/g_test">G TEST</a>
+                <a href="/g2_test">G2 TEST</a>
+                <a href="/dashboard">DASHBOARD</a>
+            <% } %>
+
+            <% if(userType == "admin") { %>
+                <a href="/appointment">APPOINTMENT</a>
+            <% } %>
+
+        <% } %>
+
+        <% if(!loggedIn) { %>
+            <a href="/login">LOGIN</a>
+        <% } %>
+        <!-- <a href="/logout">LOGOUT</a> -->
+
+    </div>
+</nav>

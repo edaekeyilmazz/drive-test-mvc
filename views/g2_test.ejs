@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%-include("./partials/stylesheet.ejs") %>
+    <!--formden.js communicates with FormDen server to validate fields and submit via AJAX -->
+    <script
+      type="text/javascript"
+      src="https://formden.com/static/cdn/formden.js"
+    ></script>
+    <!-- Special version of Bootstrap that is isolated to content wrapped in .bootstrap-iso -->
+    <link
+      rel="stylesheet"
+      href="https://formden.com/static/cdn/bootstrap-iso.css"
+    />
+    <!--Font Awesome (added because you use icons in your prepend/append)-->
+    <link
+      rel="stylesheet"
+      href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css"
+    />
+    <!-- Inline CSS based on choices in "Settings" tab -->
+    <!-- <style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;}</style> -->
+
+    <link
+      rel="stylesheet prefetch"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker3.standalone.css"
+    />
+    <link rel="stylesheet" href="/css/date-picker.css" />
+
+    <link rel="stylesheet" href="/css/g2_test.css" />
+    <link rel="shortcut icon" href="/images/drive-test.ico" />
+    <title><%=data.title %></title>
+  </head>
+  <body>
+    <%-include("./partials/header.ejs") %>
+    <div class="container">
+      <div class="row">
+        <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+          <div class="panel border bg-white">
+            <div class="panel-body p-3">
+              <form action="/g2_test" method="post" id="information_form">
+                <% if(data.gTestMessage != null) { %>
+                <div
+                  class="alert alert-danger"
+                  role="alert"
+                  bis_skin_checked="1"
+                >
+                  <%= data.gTestMessage %>
+                </div>
+                <% } %> <%-include("./partials/success.ejs") %>
+                <%-include("./partials/error.ejs") %>
+
+                <div class="row col-md-12">
+                  <!-- PERSONAL INFORMATION -->
+                  <div class="col-md-6 left-info">
+                    <fieldset>
+                      <legend>Personal Information</legend>
+                      <!-- USERNAME -->
+                      <div class="form-group py-2 input-left">
+                        <div class="input-field input-disabled">
+                          <input
+                            class="italic-text"
+                            type="text"
+                            placeholder="Username"
+                            id="username"
+                            name="username"
+                            value="<%= data.username %>"
+                            disabled
+                          />
+                        </div>
+                      </div>
+
+                      <!-- USER TYPE -->
+                      <div class="form-group py-2 input-left">
+                        <div class="input-field input-disabled">
+                          <input class="italic-text" type="text"
+                          placeholder="User Type" id="userType" name="userType"
+                          value="<%= data.userType %>" <%= data.userType ?
+                          'disabled' : '' %> />
+                        </div>
+                      </div>
+
+                      <!-- FIRST NAME -->
+                      <div class="form-group py-2 input-left">
+                        <div
+                          class="<%= data.user.firstName ? 'input-field input-disabled' : 'input-field' %>"
+                        >
+                          <input type="text" placeholder="First Name"
+                          id="firstName" name="firstName" value="<%=
+                          data.user.firstName %>" <%= data.user.firstName ?
+                          'disabled' : '' %> />
+                        </div>
+                        <span class="error-firstname"></span>
+                      </div>
+
+                      <!-- LAST NAME -->
+                      <div class="form-group py-2 input-left">
+                        <div
+                          class="<%= data.user.lastName ? 'input-field input-disabled' : 'input-field' %>"
+                        >
+                          <input type="text" placeholder="Last Name"
+                          id="lastName" name="lastName"
+                          value="<%=data.user.lastName %>" <%=
+                          data.user.lastName ? 'disabled' : '' %> />
+                        </div>
+                        <span class="error-lastname"></span>
+                      </div>
+
+                      <!-- LICENSE NO -->
+                      <div class="form-group py-2 input-left">
+                        <div
+                          class="<%= data.user.licenseNo ? 'input-field input-disabled' : 'input-field' %>"
+                        >
+                          <input type="text" placeholder="License No"
+                          id="licenseNo" name="licenseNo" value="<%=
+                          data.user.licenseNo %>" <%= data.user.licenseNo ?
+                          'disabled' : '' %> />
+                        </div>
+                        <span class="error-licenseno"></span>
+                      </div>
+
+                      <!-- AGE -->
+                      <div class="form-group py-2 input-left">
+                        <input class="form-control" type="number"
+                        placeholder="Age" id="age" min="16" name="age"
+                        value="<%= data.user.age %>" <%= data.user.age ?
+                        'disabled' : '' %> />
+                        <span class="error-age"></span>
+                      </div>
+
+                      <!-- DATE OF BIRTH -->
+                      <div class="form-group py-2 input-left">
+                        <input type="text" class="form-control datepicker
+                        date-dob" placeholder="Date of Birth"
+                        onfocus="(this.type = 'date')" id="dob" name="dob"
+                        value="<%= data.user.dob %>" <%= data.user.dob ?
+                        'disabled' : '' %> />
+                        <span class="error-dob"></span>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <!-- CAR INFORMATION -->
+                  <div class="col-md-6">
+                    <fieldset>
+                      <!-- MAKE -->
+                      <legend class="legent-right">Car Information</legend>
+                      <div class="form-group py-2 input-right">
+                        <div
+                          class="<%= data.user.car_details.make ? 'input-field input-disabled' : 'input-field' %>"
+                        >
+                          <input type="text" placeholder="Make" id="make"
+                          name="make" value="<%= data.user.car_details.make %>"
+                          <%= data.user.car_details.make ? 'disabled' : '' %> />
+                        </div>
+                        <span class="error-make"></span>
+                      </div>
+                      <!-- MODEL -->
+                      <div class="form-group py-2 input-right">
+                        <div
+                          class="<%= data.user.car_details.model ? 'input-field input-disabled' : 'input-field' %>"
+                        >
+                          <input type="text" placeholder="Model" id="model"
+                          name="model" value="<%= data.user.car_details.model
+                          %>" <%= data.user.car_details.model ? 'disabled' : ''
+                          %> />
+                        </div>
+                        <span class="error-model"></span>
+                      </div>
+                      <!-- YEAR -->
+                      <div class="form-group py-2 input-right">
+                        <input class="form-control" type="number"
+                        placeholder="Year" id="year" name="year" value="<%=
+                        data.user.car_details.year %>" <%=
+                        data.user.car_details.year ? 'disabled' : '' %> />
+                        <span class="error-year"></span>
+                      </div>
+                      <!-- PLATE NUMBER -->
+                      <div class="form-group py-2 input-right">
+                        <div
+                          class="<%= data.user.car_details.plateNo ? 'input-field input-disabled' : 'input-field' %>"
+                        >
+                          <input type="text" placeholder="Plate Number"
+                          id="plateNo" name="plateNo" value="<%=
+                          data.user.car_details.plateNo %>" <%=
+                          data.user.car_details.plateNo ? 'disabled' : '' %> />
+                        </div>
+                        <span class="error-plateno"></span>
+                      </div>
+
+                      <br />
+                      <legend class="legent-right">
+                        Appointment Information
+                      </legend>
+
+                      <!-- APPOINTMENT DATE -->
+                      <div
+                        class="form-group py-2 input-right row row-appointment-date"
+                      >
+                        <!-- <label for="appointmentDate">Date:<span class="asteriskField">*</span></label> -->
+                        <div
+                          id="flight-datepicker"
+                          class="input-daterange input group"
+                        >
+                          <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                          </div>
+                          <input
+                            type="text"
+                            id="appointmentDate"
+                            name="appointmentDate"
+                            placeholder="Select appointment date"
+                            data-date-format="mm-dd-yyyy"
+                            class="input-sm form-control"
+                            value="<%= data.appointment.appointmentDate %>"
+                            <%= data.appointment.appointmentDate ? 'disabled' : '' %> 
+                          />
+                        </div>
+                        <span class="error-appointmentdate"></span>
+                      </div>
+
+                      <% if(data.user.appointmentId != ''){ %>
+                      <!-- APPOINTMENT TIME -->
+                      <div class="form-group py-2 input-right">
+                        <input
+                            type="text"
+                            id="appointmentTime"
+                            name="appointmentTime"
+                            class="input-sm form-control"
+                            value=<%= data.appointment.appointmentTime %>
+                            disabled
+                          />
+                        <span class="error-appointmenttime"></span>
+                      </div>
+                      <% } else { %>
+                        <!-- APPOINTMENT TIME -->
+                        <div class="form-group py-2 input-right">
+                          <select
+                            class="form-control"
+                            name="appointmentTime"
+                            id="appointmentTime"
+                            disabled>
+                          </select>
+                          <option hidden value="-1" selected>
+                            Select a time slot
+                          </option>
+                          <span class="error-appointmenttime"></span>
+                        </div>
+                      <% } %>
+
+                    </fieldset>
+                  </div>
+                </div>
+                <button
+                  type="submit"
+                  class="btn btn-block mt-3 btn-login"
+                  id="submit"
+                >
+                  Submit
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <small id="copyright-white"
+      >Copyright &copy; 2023 Eda Ekeyilmaz, All Rights Reserved</small
+    >
+
+    <% include("./partials/script.ejs") %>
+
+    <!-- <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> -->
+    <script
+      type="text/javascript"
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+    ></script>
+    <!-- Include Date Range Picker -->
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"
+    />
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.js"></script>
+
+    <script src="/js/date-picker.js"></script>
+    <script src="/js/g2_test.js"></script>
+  </body>
+</html>

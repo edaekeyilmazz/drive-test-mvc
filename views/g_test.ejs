@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%-include("./partials/stylesheet.ejs") %>
+    <link rel="stylesheet" href="/css/g2_test.css" />
+    <link rel="shortcut icon" href="/images/drive-test.ico" />
+    <title><%=data.title %></title>
+  </head>
+  <body>
+    <%-include("./partials/header.ejs") %>
+    <div class="container">
+      <div class="row">
+        <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+          <div class="panel border bg-white">
+            <div class="panel-body p-3">
+              <form action="/g_test" method="post" id="information_form">
+                <% if(data.gTestMessage != null) { %>
+                  <div class="alert alert-danger" role="alert" bis_skin_checked="1"> <%= data.gTestMessage %> </div>
+                <% } %>
+
+                <%-include("./partials/success.ejs") %>
+                <%-include("./partials/error.ejs") %>
+              
+                <div class="row col-md-12">
+                  <!-- PERSONAL INFORMATION -->
+                  <div class="col-md-6 left-info">
+                    <fieldset>
+                      <legend>Personal Information</legend>
+                      <!-- USERNAME -->
+                      <div class="form-group py-2 input-left">
+                        <div class= "input-field input-disabled">
+                          <input
+                            class="italic-text"
+                            type="text"
+                            placeholder="Username"
+                            id="username"
+                            name="username"
+                            value="<%= data.username %>"
+                            disabled
+                          />
+                        </div>
+                      </div>
+
+                      <!-- USER TYPE -->
+                      <div class="form-group py-2 input-left">
+                        <div class= "input-field input-disabled">
+                          <input
+                            class="italic-text"
+                            type="text"
+                            placeholder="User Type"
+                            id="userType"
+                            name="userType"
+                            value="<%= data.userType %>"
+                            <%= data.userType ? 'disabled' : '' %> 
+                          />
+                        </div>
+                      </div>
+
+                      <!-- FIRST NAME -->
+                      <div class="form-group py-2 input-left">
+                        <div class= "input-field input-disabled">
+                          <input type="text" placeholder="First Name"
+                          id="firstName" name="firstName" value="<%= data.user.firstName %>" 
+                          disabled
+                         />
+                        </div>
+                        <span class="error-firstname"></span>
+                      </div>
+
+                      <!-- LAST NAME -->
+                      <div class="form-group py-2 input-left">
+                        <div class= "input-field input-disabled">
+                          <input type="text" placeholder="Last Name"
+                          id="lastName" name="lastName" value="<%=data.user.lastName %>" 
+                          disabled
+                        />
+                        </div>
+                        <span class="error-lastname"></span>
+                      </div>
+
+                      <!-- LICENSE NO -->
+                      <div class="form-group py-2 input-left">
+                        <div class= "input-field input-disabled">
+                            <input type="text" placeholder="License No"
+                            id="licenseNo" name="licenseNo" value="<%= data.user.licenseNo %>" 
+                            disabled
+                             />
+                        </div>
+                        <span class="error-licenseno"></span>
+                      </div>
+                      
+                      <!-- AGE -->
+                      <div class="form-group py-2 input-left">
+                        <input class="form-control" type="number"
+                        placeholder="Age" id="age" min="16" name="age"
+                        value="<%= data.user.age %>" 
+                        disabled
+                        />
+                        <span class="error-age"></span>
+                      </div>
+
+                      <!-- DATE OF BIRTH -->
+                      <div class="form-group py-2 input-left">
+                        <input type="text" class="form-control datepicker
+                        date-dob" placeholder="Date of Birth"
+                        onfocus="(this.type = 'date')" id="dob" name="dob"
+                        value="<%= data.user.dob %>" 
+                        disabled 
+                        />
+                       <span class="error-dob"></span>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <!-- CAR INFORMATION -->
+                  <div class="col-md-6">
+                    <fieldset>
+                      <!-- MAKE -->
+                      <legend class="legent-right">Car Information</legend>
+                      <div class="form-group py-2 input-right">
+                        <div  class= "input-field">
+                          <input
+                            type="text"
+                            placeholder="Make"
+                            id="make"
+                            name="make"
+                            value="<%= data.user.car_details.make %>"
+                          />
+                        </div>
+                        <span class="error-make"></span>
+                      </div>
+                      <!-- MODEL -->
+                      <div class="form-group py-2 input-right">
+                        <div  class= "input-field">
+                          <input
+                            type="text"
+                            placeholder="Model"
+                            id="model"
+                            name="model"
+                            value="<%= data.user.car_details.model %>"
+                          />
+                        </div>
+                        <span class="error-model"></span>
+                      </div>
+                      <!-- YEAR -->
+                      <div class="form-group py-2 input-right">
+                        <input
+                          class="form-control"
+                          type="number"
+                          placeholder="Year"
+                          id="year"
+                          name="year"
+                          value="<%= data.user.car_details.year %>"
+                        />
+                       <span class="error-year"></span>
+                      </div>
+                      <!-- PLATE NUMBER -->
+                      <div class="form-group py-2 input-right">
+                        <div  class= "input-field">
+                          <input
+                            type="text"
+                            placeholder="Plate Number"
+                            id="plateNo"
+                            name="plateNo"
+                            value="<%= data.user.car_details.plateNo %>" 
+                          />
+                        </div>
+                        <span class="error-plateno"></span>
+                      </div>
+                    </fieldset>
+                  </div>
+                </div>
+                <button
+                  type="submit"
+                  class="btn btn-block mt-3 btn-login"
+                  id="submit"
+                >
+                  Submit
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <small id="copyright-white" >Copyright &copy; 2023 Eda Ekeyilmaz, All Rights Reserved</small>
+    
+    <% include("./partials/script.ejs") %>
+  </body>
+</html>

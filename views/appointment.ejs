@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/images/drive-test.ico" />
+    <link rel="shortcut icon" href="/images/drive-test.ico" />
+    <title><%= data.title %></title>
+
+    <%-include("./partials/stylesheet.ejs") %>
+    <!--formden.js communicates with FormDen server to validate fields and submit via AJAX -->
+    <script type="text/javascript" src="https://formden.com/static/cdn/formden.js"></script>
+    <!-- Special version of Bootstrap that is isolated to content wrapped in .bootstrap-iso -->
+    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+    <!--Font Awesome (added because you use icons in your prepend/append)-->
+    <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+    <!-- Inline CSS based on choices in "Settings" tab -->
+    <!-- <style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;}</style> -->
+
+
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker3.standalone.css'>
+    <link rel="stylesheet" href="/css/date-picker.css" />
+    <link rel="stylesheet" href="/css/appointment.css" />
+
+
+  </head>
+
+  <body>
+    <%-include("./partials/header.ejs") %>
+    <div class="container">
+      <div class="row">
+        <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+          <div class="panel border bg-white">
+            <div class="panel-body p-3">
+              <form action="/appointment" method="post" id="appointment_form">
+
+                <%-include("./partials/success.ejs") %>
+                <%-include("./partials/error.ejs") %>
+
+                  <div class="row row-appointment-date">
+                  <label for="appointmentDate">Date:<span class="asteriskField">*</span></label>
+                  <div id="flight-datepicker" class="input-daterange  input group">
+                    <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                    <input type="text" id="appointmentDate" name="appointmentDate" placeholder="Select appointment date" data-date-format="DD, MM d" class="input-sm form-control"/>
+                  </div>
+                  <span class="error-appointmentdate"></span>
+                </div>
+
+                <br />
+                
+                
+                <input type="hidden" name="selected-time-slot" id="selected-time-slot" value="">
+                <div class="row"><label>Time:</label></div>
+                <div class="row">
+                  <!-- <input type="button" class="btn btn btn-outline-primary time-slot" id="time_slot0900" name="time_slot0900" value="09:00"></input>
+                  <input type="button" class="btn btn btn-outline-primary time-slot" id="time_slot0930" name="time_slot0930" value="09:30"></input> -->
+                  <% for (let i = 8; i <= 9; i++) { %>
+                    <input type="button" class="btn btn btn-outline-primary time-slot" id="time_slot0<%= i %>00" name="time_slot0<%= i %>00" value="0<%= i %>:00"></input>
+                    <input type="button" class="btn btn btn-outline-primary time-slot" id="time_slot0<%= i %>30" name="time_slot0<%= i %>30" value="0<%= i %>:30"></input>
+                <% } %>
+                  <% for (let i = 10; i <= 15; i++) { %>
+                    <input type="button" class="btn btn btn-outline-primary time-slot" id="time_slot<%= i %>00" name="time_slot<%= i %>00" value="<%= i %>:00"></input>
+                    <input type="button" class="btn btn btn-outline-primary time-slot" id="time_slot<%= i %>30" name="time_slot<%= i %>30" value="<%= i %>:30"></input>
+                <% } %>
+                <span class="error-appointmenttime"></span>
+              </div>
+                <br />
+                <br />
+                <button type="submit" class="btn btn-save mt-3 col-md-4">Save</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <small id="copyright-white">Copyright &copy; 2023 Eda Ekeyilmaz, All Rights Reserved</small>
+   
+
+    <!-- Extra JavaScript/CSS added manually in "Settings" tab -->
+    <!-- Include jQuery -->
+    <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script> -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Include Date Range Picker -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.js'></script>
+
+    <script src="/js/date-picker.js"></script>
+    <script src="/js/appointment.js"></script>
+
+  </body>
+</html>

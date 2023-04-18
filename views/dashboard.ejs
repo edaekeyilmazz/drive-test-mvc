@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/images/drive-test.ico">
+    <%-include("./partials/stylesheet.ejs") %>
+    <title><%= data.title %></title>
+</head>
+<body>
+    <%-include("./partials/header.ejs") %>
+    <%-include("./partials/error.ejs") %>
+        
+    <% if(data.userType == 'driver' && data.g2message != "") { %>
+        <div class="alert alert-danger" role="alert" bis_skin_checked="1">  <%= data.g2message %> </div>
+    <% } %>
+    <div class="part1">
+        <h1 class="dashboard-title">Dashboard</h1>
+        <p class="dashboard-text1">DriveTest Booking Kiosk</p>
+        <!-- <p class="dashboard-text1-red"><%= data.g2message %></p> -->
+     </div>
+
+    <div class="part2">
+        <p class="dashboard-text2">You can book G2/G drive test from</p>
+        <p class="dashboard-text2">this Kiosk</p>
+        <p class="dashboard-text3">You can book G2/G drive test from this Kiosk </p>
+        <p class="dashboard-text4-gray">Posted by <span class="dashboard-text4-black">DriveTest Center</span></p>
+    </div>    
+       
+    <small id="copyright-white" >Copyright &copy; 2023 Eda Ekeyilmaz, All Rights Reserved</small>
+    
+</body>
+</html>
