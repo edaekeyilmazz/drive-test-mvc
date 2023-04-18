@@ -2,7 +2,7 @@ import  express  from 'express'
 
 import UserController  from '../controllers/UserController.js'
 
-import { isValid, isAuthAdmin, isAuthDriver } from '../middlewares/middleware.js'
+import { isValid, isAuthAdmin, isAuthDriver, isAuthExaminer } from '../middlewares/middleware.js'
 import appointmentModel from '../models/appointment.js';
 
 const router = express.Router()
@@ -47,8 +47,11 @@ router.post('/g2_test', isValid, isAuthDriver,  UserController.g2test_postContro
 // APPOINTMENT
 router.get('/appointment', isValid, isAuthAdmin, UserController.appointment_getController)
 router.post('/appointment', isValid, isAuthAdmin, UserController.appointment_postController)
-// router.get('/getAppointmentList/:date', UserController.appointmentList_getController)
 router.get("/get-available-time-slots/:date/:isTimeSlotAvailable", getAvailableTimeSlots);
+
+// EXAMINER
+router.get('/examiner', isValid, isAuthExaminer, UserController.examiner_getController)
+// router.post('/examiner', isValid, isAuthExaminer, UserController.examiner_postController)
 
 // SIGNUP
 router.get('/signup', UserController.signup_getController)

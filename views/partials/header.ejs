@@ -14,6 +14,10 @@
                 <a href="/appointment">APPOINTMENT</a>
             <% } %>
 
+            <% if(userType == "examiner") { %>
+                <a href="/examiner">EXAMINER</a>
+            <% } %>
+
         <% } %>
 
         <% if(!loggedIn) { %>

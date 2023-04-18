@@ -42,9 +42,23 @@ const isValid  = (req, res, next) => {
         }
       };
   
+      const isAuthExaminer  = (req, res, next) => {
+        if (req.session.isFoundInDb && req.session.userType != "examiner") {
+          req.session.error = "Users other than 'Examiner' do not have access this page !";
+          const data = {
+              title: "Dashboard",
+              showErrorMessage: true,
+              message: req.session.error
+          }
+          res.render("dashboard", { data });
+        } else {
+          next();
+        }
+      };
         
   export {
     isValid,
     isAuthAdmin,
-    isAuthDriver
+    isAuthDriver,
+    isAuthExaminer
   }

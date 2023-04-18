@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/images/drive-test.ico" />
+    <title><%= data.title %></title>
+
+    <%-include("./partials/stylesheet.ejs") %>
+   
+
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker3.standalone.css'>
+    <link rel="stylesheet" href="/css/date-picker.css" />
+    <link rel="stylesheet" href="/css/appointment.css" />
+
+
+  </head>
+
+  <body>
+    <%-include("./partials/header.ejs") %>
+    <div class="container">
+      <div class="row">
+        <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+          <div class="panel border bg-white">
+            <div class="panel-body p-3">
+              <form action="/examiner" method="post" id="examiner_form">
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <small id="copyright-white">Copyright &copy; 2023, All Rights Reserved</small>
+  </body>
+</html>

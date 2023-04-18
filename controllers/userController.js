@@ -233,6 +233,17 @@ class UserController{
       
     //#endregion APPOINTMENT METHODS
 
+      //#region EXAMINER METHODS
+      static examiner_getController = async (req, res) => {
+        
+        const data = {
+            title: "Examiner",
+            showErrorMessage: false,
+            showSuccessMessage: false
+        }
+        res.render("examiner.ejs", { data });
+      };
+      //#endregion EXAMINER METHODS
 
     //#region DASHBOARD METHODS
     static dashboardController =async (req, res) => {
