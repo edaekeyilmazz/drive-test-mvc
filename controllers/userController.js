@@ -69,9 +69,10 @@ class UserController{
     //#region G2 TEST METHODS
     static g2test_getController = async (req,res)=>{
         // User Detail Info
-        const userDetail = await userModel.findById(req.session.userId);
+        const userDetail = await userModel.findById(req.session.userId).populate('appointment');
+        console.log(userDetail);
         const appointmentInfo = userDetail.appointment == null ? new appointmentModel() : await appointmentModel.findById(userDetail.appointment.id);
-        console.log(appointmentInfo);
+        console.log(appointmentInfo); 
         const gTestMessage = userDetail.licenseNo == "" ? "Please enter your personal information first!": null;
         req.session.appointmentTime = appointmentInfo.appointmentTime;
         const data = {

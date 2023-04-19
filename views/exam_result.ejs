@@ -50,7 +50,11 @@
                                 <td><%= data.userList[i].testType %></td>
                                 <td><%= data.userList[i].testResult ? 'Pass' : 'Fail' %></td>
                                 <td><%= data.userList[i].examinerComment %></td>
-                                <td><a class="btn btn-primary" href="#">Order Driver License</a></td>
+                                <% if (data.userList[i].testResult) { %>
+                                  <td><a class="btn btn-primary" href="#">Order Driver License</a></td>
+                                <% } else { %>
+                                  <td></td>
+                                <% } %>
                               </tr>
                            <% } %>
                       </tbody>
