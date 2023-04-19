@@ -14,8 +14,8 @@ form{
     margin-top: 5%;
     margin-bottom: 5%;
 }
-thead{
-    font-weight: bold;
+th{
+    font-weight: 800 !important;
 }
 
 form label {
