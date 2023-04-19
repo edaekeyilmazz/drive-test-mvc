@@ -1,0 +1,56 @@
+.container.examiner{
+    margin-top: 5% !important;
+    width: 70% !important;
+    padding: 10px !important;
+    background-color: #F9F9F9;
+    box-shadow: 0px 0px 7.44px 0.56px rgba(0,0,0,0.1);
+    padding: 3% !important;
+}
+h1{
+    text-align: center;
+    color: black;
+}
+form{
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+thead{
+    font-weight: bold;
+}
+
+form label {
+    width: 20%;
+    margin-right: 15px;
+    color: black;
+    font-family: 'OpenSans-Semibold',sans-serif;
+    font-size: 22px;
+    line-height: 110%;
+    margin: 0 15px 0 0;
+    display: inline-block;
+    vertical-align: middle;
+}
+form select {
+    width: 365px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 30px;
+    padding: 12px 20px;
+    height: 50px;
+    border-radius: 0;
+    border: 0;
+    -webkit-appearance: none;
+    font-family: 'OpenSans-Regular',sans-serif;
+    font-size: 18px;
+    line-height: 140%;
+    background: #fff url(/images/drop-down-arrow.svg) 100% center/60px auto no-repeat;
+    outline: 0;
+    box-shadow: 0px 0px 7.44px 0.56px rgba(0,0,0,0.1);
+}
+button{
+
+    width: 10%;
+    height: 50px;
+    background: #fff;
+    border: 0;
+
+}

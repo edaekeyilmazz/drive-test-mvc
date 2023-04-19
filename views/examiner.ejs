@@ -5,31 +5,51 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="/images/drive-test.ico" />
-    <title><%= data.title %></title>
-
     <%-include("./partials/stylesheet.ejs") %>
-   
-
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker3.standalone.css'>
-    <link rel="stylesheet" href="/css/date-picker.css" />
-    <link rel="stylesheet" href="/css/appointment.css" />
-
-
+    <link rel="stylesheet" href="/css/examiner.css" />
+    <title><%= data.title %></title>
   </head>
 
   <body>
     <%-include("./partials/header.ejs") %>
-    <div class="container">
+    <div class="container examiner">
+      <h1>Appointment List</h1>
+      <form action="/" method="GET">
+        <label for="testType">Filter by Test Type:</label>
+        <select name="testType" id="testType">
+          <option value="">All</option>
+          <option value="G">G</option>
+          <option value="G2">G2</option>
+        </select>
+        <button type="submit">Filter</button>
+      </form>
       <div class="row">
-        <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
-          <div class="panel border bg-white">
-            <div class="panel-body p-3">
-              <form action="/examiner" method="post" id="examiner_form">
-
-              </form>
-            </div>
+          <div class="col-12">
+              <table class="table table-striped">
+                  <thead>
+                      <tr>
+                        <th scope="col">User Name</th>
+                        <th scope="col">Exam Date</th>
+                        <th scope="col">Exam Time</th>
+                        <th scope="col">Test Type</th>
+                          <th scope="col">Select</th>
+                          <!-- <th scope="col">Delete</th> -->
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <% for(var i=0; i<data.appointmentList.length; i++) {%>
+                          <tr>
+                            <td><%= data.appointmentList[i].firstName + ' ' + data.appointmentList[i].lastName%></td>
+                            <td><%= data.appointmentList[i].appointment.appointmentDate %></td>
+                            <td><%= data.appointmentList[i].appointment.appointmentTime %></td>
+                            <td><%= data.appointmentList[i].testType %></td>
+                            <td><a class="btn btn-success" href="/examiner_edit/<%= data.appointmentList[i].id %>"> View Details </a></td>
+                          </tr>
+                       <% } %>
+                  </tbody>
+              </table>
           </div>
-        </div>
       </div>
     </div>
     <small id="copyright-white">Copyright &copy; 2023, All Rights Reserved</small>

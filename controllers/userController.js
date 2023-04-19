@@ -236,13 +236,29 @@ class UserController{
 
       //#region EXAMINER METHODS
       static examiner_getController = async (req, res) => {
+            const appointmentList = await userModel.find({ appointment: { $exists: true } })
+            .populate('appointment');
+
+            const data = {
+                title: "Examiner",
+                appointmentList: appointmentList,
+                showErrorMessage: false,
+                showSuccessMessage: false
+            }
+            res.render("examiner.ejs", { data });
+        };
+      static appointmentList_getController = async (req, res) => {
         
+        const userList = await userModel.find({ testResult: { $exists: true } })
+        .populate('appointment');
+
         const data = {
-            title: "Examiner",
+            title: "Exam Results",
+            userList: userList,
             showErrorMessage: false,
             showSuccessMessage: false
         }
-        res.render("examiner.ejs", { data });
+        res.render("exam_result.ejs", { data });
       };
 
       static examresult_getController = async (req, res) => {
@@ -258,6 +274,8 @@ class UserController{
         }
         res.render("exam_result.ejs", { data });
       };
+
+
       //#endregion EXAMINER METHODS
 
     //#region DASHBOARD METHODS
