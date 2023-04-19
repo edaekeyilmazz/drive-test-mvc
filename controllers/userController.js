@@ -6,21 +6,26 @@ class UserController{
 
     //#region G TEST METHODS
     static gtest_getController = async (req,res)=>{
-      const userDetail = await userModel.findById(req.session.userId);
-      const gTestMessage = userDetail.licenseNo == null ? "Please enter your personal information first!": null;
-      
-      const data = {
-        "title" : "G Test",
-        user: userDetail,
-        username: req.session.username,
-        userType: req.session.userType,
-        showSuccessMessage: false,
-        showErrorMessage: false,
-        gTestMessage: gTestMessage
+
+        const userDetail = await userModel.findById(req.session.userId).populate('appointment');
+        console.log(userDetail);
+        // let appointmentInfo = (userDetail.appointment == null || userDetail.testType == 'G2') ? new appointmentModel() : await appointmentModel.findById(userDetail.appointment.id);
+        const appointmentInfo = userDetail.appointment == null ? new appointmentModel() : await appointmentModel.findById(userDetail.appointment.id);
+        console.log(appointmentInfo); 
+        const gTestMessage = userDetail.licenseNo == "" ? "Please enter your personal information first!": null;
+        req.session.appointmentTime = appointmentInfo.appointmentTime;
+        const data = {
+              "title" : "G Test",
+              user: userDetail,
+              appointment : appointmentInfo,
+              username: req.session.username,
+              userType: req.session.userType,
+              showSuccessMessage: false,
+              showErrorMessage: false,
+              gTestMessage: gTestMessage
+        }
+            res.render('g_test.ejs', { data });
     }
-    res.render('g_test.ejs', { data });
-    }
-    
 
     static gtest_postController = async (req,res)=>{
         const user_data = req.body;
@@ -32,7 +37,9 @@ class UserController{
                 model: user_data.model,
                 year: user_data.year,
                 plateNo: user_data.plateNo
-            }
+            },
+            appointment: user_data.appointmentTime,
+            testType: 'G'
         },
         {new: true})
         .then((return_data) => {
@@ -72,6 +79,7 @@ class UserController{
         const userDetail = await userModel.findById(req.session.userId).populate('appointment');
         console.log(userDetail);
         const appointmentInfo = userDetail.appointment == null ? new appointmentModel() : await appointmentModel.findById(userDetail.appointment.id);
+        // let appointmentInfo = (userDetail.appointment == null || userDetail.testType == 'G') ? new appointmentModel() : await appointmentModel.findById(userDetail.appointment.id);
         console.log(appointmentInfo); 
         const gTestMessage = userDetail.licenseNo == "" ? "Please enter your personal information first!": null;
         req.session.appointmentTime = appointmentInfo.appointmentTime;
@@ -113,7 +121,8 @@ class UserController{
                 year: user_data.year,
                 plateNo: user_data.plateNo
             },
-            appointment: user_data.appointmentTime
+            appointment: user_data.appointmentTime,
+            testType: 'G2'
         },
         {new: true})
         .then(async (return_data) => {
@@ -236,6 +245,7 @@ class UserController{
 
       //#region EXAMINER METHODS
       static examiner_getController = async (req, res) => {
+            const query = req.query;
             const appointmentList = await userModel.find({ appointment: { $exists: true } })
             .populate('appointment');
 
@@ -243,23 +253,11 @@ class UserController{
                 title: "Examiner",
                 appointmentList: appointmentList,
                 showErrorMessage: false,
-                showSuccessMessage: false
+                showSuccessMessage: false,
+                query: query
             }
-            res.render("examiner.ejs", { data });
+            res.render("examiner.ejs", { data, req });
         };
-      static appointmentList_getController = async (req, res) => {
-        
-        const userList = await userModel.find({ testResult: { $exists: true } })
-        .populate('appointment');
-
-        const data = {
-            title: "Exam Results",
-            userList: userList,
-            showErrorMessage: false,
-            showSuccessMessage: false
-        }
-        res.render("exam_result.ejs", { data });
-      };
 
       static examresult_getController = async (req, res) => {
         

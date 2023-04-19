@@ -15,7 +15,7 @@
     <%-include("./partials/header.ejs") %>
     <div class="container examiner">
       <h1>Appointment List</h1>
-      <form action="/" method="GET">
+      <form action="/examiner" method="GET">
         <label for="testType">Filter by Test Type:</label>
         <select name="testType" id="testType">
           <option value="">All</option>
@@ -37,7 +37,7 @@
                           <!-- <th scope="col">Delete</th> -->
                       </tr>
                   </thead>
-                  <tbody>
+                  <!-- <tbody>
                       <% for(var i=0; i<data.appointmentList.length; i++) {%>
                           <tr>
                             <td><%= data.appointmentList[i].firstName + ' ' + data.appointmentList[i].lastName%></td>
@@ -47,6 +47,19 @@
                             <td><a class="btn btn-success" href="/examiner_edit/<%= data.appointmentList[i].id %>"> View Details </a></td>
                           </tr>
                        <% } %>
+                  </tbody> -->
+                  <tbody>
+                    <% for(var i=0; i<data.appointmentList.length; i++) {
+                      const appointment = data.appointmentList[i];
+                      if ((!req.query.testType || req.query.testType === appointment.testType)) { %>
+                      <tr>
+                        <td><%= appointment.firstName + ' ' + appointment.lastName%></td>
+                        <td><%= appointment.appointment.appointmentDate %></td>
+                        <td><%= appointment.appointment.appointmentTime %></td>
+                        <td><%= appointment.testType %></td>
+                        <td><a class="btn btn-success" href="/examiner_edit/<%= appointment.id %>"> View Details </a></td>
+                      </tr>
+                    <% } } %>
                   </tbody>
               </table>
           </div>

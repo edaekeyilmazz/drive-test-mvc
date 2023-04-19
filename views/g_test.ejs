@@ -5,6 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%-include("./partials/stylesheet.ejs") %>
+        <!--formden.js communicates with FormDen server to validate fields and submit via AJAX -->
+        <script
+        type="text/javascript"
+        src="https://formden.com/static/cdn/formden.js"
+      ></script>
+      <!-- Special version of Bootstrap that is isolated to content wrapped in .bootstrap-iso -->
+      <link
+        rel="stylesheet"
+        href="https://formden.com/static/cdn/bootstrap-iso.css"
+      />
+      <!--Font Awesome (added because you use icons in your prepend/append)-->
+      <link
+        rel="stylesheet"
+        href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css"
+      />
+    <link
+    rel="stylesheet prefetch"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker3.standalone.css"
+  />
+  <link rel="stylesheet" href="/css/date-picker.css" />
     <link rel="stylesheet" href="/css/g2_test.css" />
     <link rel="shortcut icon" href="/images/drive-test.ico" />
     <title><%=data.title %></title>
@@ -170,6 +190,65 @@
                         </div>
                         <span class="error-plateno"></span>
                       </div>
+                      <br />
+                      <legend class="legent-right">
+                        Appointment Information
+                      </legend>
+
+                      <!-- APPOINTMENT DATE -->
+                      <div
+                        class="form-group py-2 input-right row row-appointment-date"
+                      >
+                        <!-- <label for="appointmentDate">Date:<span class="asteriskField">*</span></label> -->
+                        <div
+                          id="flight-datepicker"
+                          class="input-daterange input group"
+                        >
+                          <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                          </div>
+                          <input
+                            type="text"
+                            id="appointmentDate"
+                            name="appointmentDate"
+                            placeholder="Select appointment date"
+                            data-date-format="mm-dd-yyyy"
+                            class="input-sm form-control"
+                            value="<%= data.appointment.appointmentDate %>"
+                            <%= data.appointment.appointmentDate ? 'disabled' : '' %> 
+                          />
+                        </div>
+                        <span class="error-appointmentdate"></span>
+                      </div>
+
+                      <% if(data.user.appointment != null){ %>
+                      <!-- APPOINTMENT TIME -->
+                      <div class="form-group py-2 input-right">
+                        <input
+                            type="text"
+                            id="appointmentTime"
+                            name="appointmentTime"
+                            class="input-sm form-control"
+                            value=<%= data.appointment.appointmentTime %>
+                            disabled
+                          />
+                        <span class="error-appointmenttime"></span>
+                      </div>
+                      <% } else { %>
+                        <!-- APPOINTMENT TIME -->
+                        <div class="form-group py-2 input-right">
+                          <select
+                            class="form-control"
+                            name="appointmentTime"
+                            id="appointmentTime"
+                            disabled>
+                          </select>
+                          <option hidden value="-1" selected>
+                            Select a time slot
+                          </option>
+                          <span class="error-appointmenttime"></span>
+                        </div>
+                      <% } %>
                     </fieldset>
                   </div>
                 </div>
@@ -190,5 +269,7 @@
     <small id="copyright-white" >Copyright &copy; 2023, All Rights Reserved</small>
     
     <% include("./partials/script.ejs") %>
+    <script src="/js/date-picker.js"></script>
+    <script src="/js/g.js"></script>
   </body>
 </html>
