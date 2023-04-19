@@ -48,6 +48,7 @@ router.post('/g2_test', isValid, isAuthDriver,  UserController.g2test_postContro
 router.get('/appointment', isValid, isAuthAdmin, UserController.appointment_getController)
 router.post('/appointment', isValid, isAuthAdmin, UserController.appointment_postController)
 router.get("/get-available-time-slots/:date/:isTimeSlotAvailable", getAvailableTimeSlots);
+router.get('/exam_result', isValid, isAuthAdmin, UserController.examresult_getController)
 
 // EXAMINER
 router.get('/examiner', isValid, isAuthExaminer, UserController.examiner_getController)

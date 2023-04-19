@@ -53,11 +53,15 @@ const userSchema = mongoose.Schema({
             default: ''
         }
     },
-    appointmentId: {
-        type: String,
-        // type: mongoose.Schema.Types.ObjectId,
-        // ref: 'appointment',
-        default: ''
+    // appointmentId: {
+    //     type: String,
+    //     // type: mongoose.Schema.Types.ObjectId,
+    //     // ref: 'appointment',
+    //     default: ''
+    // },
+    appointment: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'appointment'
     },
     // "G" or "G2"
     testType: {

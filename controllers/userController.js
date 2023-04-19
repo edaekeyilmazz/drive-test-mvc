@@ -70,7 +70,7 @@ class UserController{
     static g2test_getController = async (req,res)=>{
         // User Detail Info
         const userDetail = await userModel.findById(req.session.userId);
-        const appointmentInfo = userDetail.appointmentId == '' ? new appointmentModel() : await appointmentModel.findById(userDetail.appointmentId);
+        const appointmentInfo = userDetail.appointment == null ? new appointmentModel() : await appointmentModel.findById(userDetail.appointment.id);
         console.log(appointmentInfo);
         const gTestMessage = userDetail.licenseNo == "" ? "Please enter your personal information first!": null;
         req.session.appointmentTime = appointmentInfo.appointmentTime;
@@ -112,7 +112,7 @@ class UserController{
                 year: user_data.year,
                 plateNo: user_data.plateNo
             },
-            appointmentId: user_data.appointmentTime
+            appointment: user_data.appointmentTime
         },
         {new: true})
         .then(async (return_data) => {
@@ -242,6 +242,20 @@ class UserController{
             showSuccessMessage: false
         }
         res.render("examiner.ejs", { data });
+      };
+
+      static examresult_getController = async (req, res) => {
+        
+        const userList = await userModel.find({ testResult: { $exists: true } })
+        .populate('appointment');
+
+        const data = {
+            title: "Exam Results",
+            userList: userList,
+            showErrorMessage: false,
+            showSuccessMessage: false
+        }
+        res.render("exam_result.ejs", { data });
       };
       //#endregion EXAMINER METHODS
 
