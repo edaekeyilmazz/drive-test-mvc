@@ -2,6 +2,9 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 20px;
+    width:50%;
+    margin-left:25%;
+    text-align: center;
   }
   
   .card-header {
@@ -20,4 +23,23 @@
   .list-group-item {
     padding: 0.75rem 1.25rem;
     border-top: 1px solid #ccc;
+  }
+  .result-icon-accept{
+    margin-left:45%;
+    margin-top:2%;
+    margin-bottom:2%;
+
+  }
+  .result-icon-reject{
+    margin-left:44%;
+    margin-top:1%;
+    margin-bottom:1%;
+  }
+  .result-icon-pending{
+    margin-left:44%;
+    margin-top:5%;
+    margin-bottom:5%;
+  }
+  h1{
+    margin-bottom: 0;
   }

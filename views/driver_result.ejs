@@ -14,8 +14,8 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker3.standalone.css"
     />
     <link rel="stylesheet" href="/css/date-picker.css" />
-    <link rel="stylesheet" href="/css/driver_result.css" />
     <link rel="stylesheet" href="/css/exam_result.css" />
+    <link rel="stylesheet" href="/css/driver_result.css" />
 
 
 
@@ -28,7 +28,7 @@
         <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
           <div class="panel border bg-white">
             <div class="panel-body p-3">
-              <form action="/driver_result" method="get">
+              <!-- <form action="/driver_result" method="get">
                 <div class="col-12">
                   <h1>Exam Results</h1>
 
@@ -52,12 +52,23 @@
                       </tbody>
                   </table>
                 </div>
-              </form>
-              <!-- <form action="/driver_result" method="get">
+              </form> -->
+              <form action="/driver_result" method="get">
                 <div class="col-12">
-                  <h1>Exam Results</h1>
-              
-                  <% if (data.userList) { %>
+                  <h1>Exam Result</h1>
+                  <% if (data.userList?.testResult != null) { %>
+
+                    <% if (data.userList.testResult == true) { %>
+                        <div>
+                          <img class="result-icon-accept" src="/images/accept.png" width="100px">
+                        </div>
+                      <% } else { %>
+                        <div>
+                          <img class="result-icon-reject" src="/images/reject.png" width="130px">
+                        </div>
+                      <% } %>
+                     
+
                     <div class="card">
                       <div class="card-header">
                         <h5 class="card-title">User Details</h5>
@@ -72,12 +83,15 @@
                       </div>
                     </div>
                   <% } else { %>
+                    <div>
+                      <img class="result-icon-pending" src="/images/wait.png" width="110px">
+                    </div>
                     <div class="alert alert-danger" role="alert">
-                      No results found!
+                      You dont have any exam result!
                     </div>
                   <% } %>
                 </div>
-              </form> -->
+              </form>
             </div>
           </div>
         </div>
