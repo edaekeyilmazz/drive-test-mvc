@@ -272,6 +272,8 @@ class UserController{
         }
         res.render("exam_result.ejs", { data });
       };
+
+      
       static driverresult_getController = async (req, res) => {
         
         const userList = await userModel.find({ testResult: { $exists: true } })
