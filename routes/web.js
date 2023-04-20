@@ -9,8 +9,6 @@ const router = express.Router()
 
 
 export const getAvailableTimeSlots = async (req, res) => {
-    // const { date, isTimeSlotAvailable } = req.params;
-
    const selectedDate = req.params.date;
   const isTimeSlotAvailable = req.params.isTimeSlotAvailable;
 

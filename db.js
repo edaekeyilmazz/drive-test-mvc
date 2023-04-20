@@ -1,3 +1,6 @@
+// Eda Ekeyilmaz -8823564
+// Namitha Chevari - 8817006
+
 import mongoose from "mongoose"
 
 mongoose.set('strictQuery', true);

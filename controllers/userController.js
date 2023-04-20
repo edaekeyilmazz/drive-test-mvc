@@ -1,3 +1,6 @@
+// Eda Ekeyilmaz -8823564
+// Namitha Chevari - 8817006
+
 import bcrypt from 'bcrypt'
 import userModel from '../models/user.js'
 import appointmentModel from '../models/appointment.js'
