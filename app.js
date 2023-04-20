@@ -6,6 +6,8 @@ import MongoStore from 'connect-mongo'
 import bodyParser from 'body-parser'
 import mongooseConnection from './db.js';
 
+const HTTP_PORT = process.env.PORT || 8080;
+
 const app = express();
 
 app.use(express.static('public'));
@@ -47,8 +49,9 @@ app.use("*", (req, res, next) => {
     next()
 });
 
-app.listen(2000, () => {
-    console.log('App is listening at port 2000!');
+
+app.listen(HTTP_PORT, () => {
+    console.log(`App is listening at port ${HTTP_PORT}!`);
 });
 
 app.use('/',router)
