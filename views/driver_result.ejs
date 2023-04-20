@@ -39,15 +39,13 @@
                           </tr>
                       </thead>
                       <tbody>
-                          <% for(var i=0; i< data.userList.length; i++) {%>
-                              <tr>
-                                <td><%= data.userList[i].firstName + ' ' + data.userList[i].lastName%></td>
-                                <td><%= data.userList[i].testType %></td>
-                                <td><%= data.userList[i].testResult ? 'Pass' : 'Fail' %></td>
-                                <td><%= data.userList[i].examinerComment %></td>
-                                  <td></td>
-                              </tr>
-                           <% } %>
+                            <tr>
+                              <td><%= data.userList.firstName + ' ' + data.userList.lastName%></td>
+                              <td><%= data.userList.testType %></td>
+                              <td><%= data.userList.testResult ? 'Pass' : 'Fail' %></td>
+                              <td><%= data.userList.examinerComment %></td>
+                                <td></td>
+                            </tr>
                       </tbody>
                   </table>
               </div>

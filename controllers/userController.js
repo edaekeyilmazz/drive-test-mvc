@@ -273,12 +273,9 @@ class UserController{
         res.render("exam_result.ejs", { data });
       };
 
-      
-      static driverresult_getController = async (req, res) => {
-        
-        const userList = await userModel.find({ testResult: { $exists: true } })
-        .populate('appointment');
 
+      static driverresult_getController = async (req, res) => {
+        const userList = await userModel.findById(req.session.userId).populate('appointment');
         const data = {
             title: "Exam Results",
             userList: userList,
