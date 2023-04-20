@@ -55,9 +55,12 @@ form select {
 }
 .modal-dialog {
     margin: 1rem auto;
+    margin-left: 27%;
 }
 .modal-content{
     width: 700px;
+    padding-left:5%;
+    padding-right:5%;
 }
 .row{
     margin-bottom:10px;

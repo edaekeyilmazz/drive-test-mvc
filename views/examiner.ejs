@@ -40,9 +40,10 @@
               </tr>
             </thead>
             <tbody>
-              <% for(var i=0; i<data.appointmentList.length; i++) { const
-              appointment = data.appointmentList[i]; if ((!req.query.testType ||
-              req.query.testType === appointment.testType)) { %>
+              <% for(var i=0; i<data.appointmentList.length; i++) { 
+                const appointment = data.appointmentList[i]; 
+                if ((!req.query.testType || req.query.testType === appointment.testType)) { %>
+
               <tr data-userid="<%= data.appointmentList[i]._id %>">
                 <td>
                   <%= appointment.firstName + ' ' + appointment.lastName%>
@@ -160,13 +161,21 @@
                 </div>
                 <div class="form-check">
                   <div class="row col-md-12">
-                    <input type="radio" name="isPass" value="pass" id="rbPass">
+                    <input
+                      type="radio"
+                      name="isPass"
+                      value="pass"
+                      id="rbPass"
+                    />
                     <label for="rbPass" id="rbPassLabel">Pass</label>
-                  
-                    <input type="radio" name="isPass" value="fail" id="rbFail">
+
+                    <input
+                      type="radio"
+                      name="isPass"
+                      value="fail"
+                      id="rbFail"
+                    />
                     <label for="rbFail" id="rbFailLabel">Fail</label>
-                  
-                  
                   </div>
                 </div>
               </div>
@@ -187,7 +196,9 @@
             </div>
 
             <div class="modal-footer justify-content-center">
-              <button type="submit"  id="submit-popup" class="btn btn-primary">Submit</button>
+              <button type="submit" id="submit-popup" class="btn btn-primary">
+                Submit
+              </button>
               <button type="button" class="btn btn-danger" data-dismiss="modal">
                 Close
               </button>
