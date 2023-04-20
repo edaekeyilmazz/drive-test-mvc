@@ -12,7 +12,9 @@
 
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker3.standalone.css'>
     <link rel="stylesheet" href="/css/date-picker.css" />
+    <link rel="stylesheet" href="/css/driver_result.css" />
     <link rel="stylesheet" href="/css/exam_result.css" />
+
 
 
   </head>
@@ -50,6 +52,31 @@
                   </table>
               </div>
               </form>
+              <!-- <form action="/driver_result" method="get">
+                <div class="col-12">
+                  <h1>Exam Results</h1>
+              
+                  <% if (data.userList) { %>
+                    <div class="card">
+                      <div class="card-header">
+                        <h5 class="card-title">User Details</h5>
+                      </div>
+                      <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item">User Name: <%= data.userList.firstName + ' ' + data.userList.lastName %></li>
+                          <li class="list-group-item">Test Type: <%= data.userList.testType %></li>
+                          <li class="list-group-item">Test Result: <%= data.userList.testResult ? 'Pass' : 'Fail' %></li>
+                          <li class="list-group-item">Examiner Comment: <%= data.userList.examinerComment %></li>
+                        </ul>
+                      </div>
+                    </div>
+                  <% } else { %>
+                    <div class="alert alert-danger" role="alert">
+                      No results found!
+                    </div>
+                  <% } %>
+                </div>
+              </form> -->
             </div>
           </div>
         </div>
