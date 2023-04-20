@@ -214,8 +214,8 @@
                             placeholder="Select appointment date"
                             data-date-format="mm-dd-yyyy"
                             class="input-sm form-control"
-                            value="<%= data.appointment.appointmentDate %>"
-                            <%= data.appointment.appointmentDate ? 'disabled' : '' %> 
+                            value="<%= data.appointment?.appointmentDate %>"
+                            <%= data.appointment?.appointmentDate ? 'disabled' : '' %> 
                           />
                         </div>
                         <span class="error-appointmentdate"></span>
@@ -229,7 +229,7 @@
                             id="appointmentTime"
                             name="appointmentTime"
                             class="input-sm form-control"
-                            value=<%= data.appointment.appointmentTime %>
+                            value=<%= data.appointment?.appointmentTime %>
                             disabled
                           />
                         <span class="error-appointmenttime"></span>

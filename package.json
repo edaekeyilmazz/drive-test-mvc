@@ -2,9 +2,9 @@
   "name": "session_store_app",
   "version": "1.0.0",
   "description": "",
-  "main": "drive-test.js",
+  "main": "app.js",
   "scripts": {
-    "dev": "nodemon drive-test.js"
+    "dev": "nodemon app.js"
   },
   "keywords": [],
   "author": "",
