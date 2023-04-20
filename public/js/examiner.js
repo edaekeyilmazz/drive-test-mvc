@@ -55,6 +55,7 @@ $("#exampleModal").on("show.bs.modal", function (event) {
     modal.find("#appointment-time").text(appointmentTime);
     modal.find("#examiner-comment").text(examinerComment);
     modal.find("#test-result").text(testResult);
+    modal.find("#user_id").val(userid);
 
 
     // check if the input field has a value

@@ -42,13 +42,25 @@ class UserController{
             testType: 'G'
         },
         {new: true})
-        .then((return_data) => {
+        .then(async (return_data) => {
             console.log("========== User has been updated successfully! ==========");
             console.log(return_data);
+            let inserted_appointment = new appointmentModel(); 
+            await appointmentModel.findByIdAndUpdate(
+                user_data.appointmentTime, 
+                { isTimeSlotAvailable: false },
+                {new: true})
+                .then((return_appointment) => { 
+                    inserted_appointment = return_appointment;
+                    console.log("Updated appointment", return_appointment);
+                    console.log("========== Appointment has been updated successfully! ==========");
+                });
+            
             const message = "User has been updated successfully!";
             const data = {
                 "title" : "G Test",
                 "user" : return_data, 
+                appointment: inserted_appointment,
                 showSuccessMessage : true,
                 showErrorMessage: false,
                 message: message,
@@ -283,7 +295,7 @@ class UserController{
         const user_data = req.body;
         const isPass = user_data.isPass == 'pass' ? true : false; 
         const userInfo = await userModel.findByIdAndUpdate(
-        req.session.userId,
+            user_data.id,
         {
             testResult: isPass,
             examinerComment: user_data.examinerComment

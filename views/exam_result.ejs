@@ -26,17 +26,6 @@
               <form action="/exam_result" method="post" id="examiner_form">
                 <div class="col-12">
                   <h1>Exam Results</h1>
-
-                  <% if(data.resultSuccessMessage != null) { %>
-                    <div class="alert alert-success" role="alert" bis_skin_checked="1">
-                      <%= data.resultSuccessMessage %>
-                    </div>
-                    <% } else{ %>
-                      <div class="alert alert-danger" role="alert" bis_skin_checked="1">
-                        <%= data.resultErrorMessage %>
-                      </div>
-                    <% } %>
-
                   <table class="table table-striped">
                     <thead>
                       <tr>

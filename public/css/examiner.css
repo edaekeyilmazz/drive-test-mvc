@@ -72,3 +72,8 @@ form select {
   .text-danger:checked + label:before {
     background-color: red;
   }
+
+#rbPassLabel, #rbFailLabel{
+    margin-left: 3px;
+    margin-top: 7px;
+}
