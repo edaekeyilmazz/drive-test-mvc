@@ -8,13 +8,12 @@
     <title><%= data.title %></title>
 
     <%-include("./partials/stylesheet.ejs") %>
-   
 
-    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker3.standalone.css'>
-    <link rel="stylesheet" href="/css/date-picker.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker3.standalone.css"
+    />
     <link rel="stylesheet" href="/css/exam_result.css" />
-
-
   </head>
 
   <body>
@@ -26,46 +25,267 @@
             <div class="panel-body p-3">
               <form action="/exam_result" method="post" id="examiner_form">
                 <div class="col-12">
-                  
                   <h1>Exam Results</h1>
 
                   <table class="table table-striped">
-                      <thead>
-                          <tr>
-                              <th scope="col">User Name</th>
-                              <th scope="col">Exam Date</th>
-                              <th scope="col">Exam Time</th>
-                              <th scope="col">Test Type</th>
-                              <th scope="col">Test Result</th>
-                              <th scope="col">Examiner Comment</th>
-                              <th scope="col">Order Driver License</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <% for(var i=0; i< data.userList.length; i++) {%>
-                              <tr>
-                                <td><%= data.userList[i].firstName + ' ' + data.userList[i].lastName%></td>
-                                <td><%= data.userList[i].appointment.appointmentDate %></td>
-                                <td><%= data.userList[i].appointment.appointmentTime %></td>
-                                <td><%= data.userList[i].testType %></td>
-                                <td><%= data.userList[i].testResult ? 'Pass' : 'Fail' %></td>
-                                <td><%= data.userList[i].examinerComment %></td>
-                                <% if (data.userList[i].testResult) { %>
-                                  <td><a class="btn btn-primary" href="#">Order Driver License</a></td>
-                                <% } else { %>
-                                  <td></td>
-                                <% } %>
-                              </tr>
-                           <% } %>
-                      </tbody>
+                    <thead>
+                      <tr>
+                        <th scope="col">User Name</th>
+                        <th scope="col">Exam Date</th>
+                        <th scope="col">Exam Time</th>
+                        <th scope="col">Test Type</th>
+                        <th scope="col">Test Result</th>
+                        <th scope="col">Examiner Comment</th>
+                        <th scope="col">Order Driver License</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% for(var i=0; i< data.userList.length; i++) {%>
+                      <tr data-userid="<%= data.userList[i]._id %>">
+                        <td>
+                          <%= data.userList[i].firstName + ' ' +
+                          data.userList[i].lastName%>
+                        </td>
+                        <td>
+                          <%= data.userList[i].appointment.appointmentDate %>
+                        </td>
+                        <td>
+                          <%= data.userList[i].appointment.appointmentTime %>
+                        </td>
+                        <td><%= data.userList[i].testType %></td>
+                        <td>
+                          <%= data.userList[i].testResult ? 'Pass' : 'Fail' %>
+                        </td>
+                        <td><%= data.userList[i].examinerComment %></td>
+                        <% if (data.userList[i].testResult) { %>
+                        <td>
+                          <!-- <a class="btn btn-primary" href="#"
+                            >Order Driver License</a
+                          > -->
+                          <button
+                            type="button"
+                            data-userid="<%= data.userList[i]._id %>"
+                            data-test-type="<%= data.userList[i].testType %>"
+                            data-full-name="<%= data.userList[i].firstName + ' ' + data.userList[i].lastName %>"
+                            data-car-make="<%= data.userList[i].car_details.make %>"
+                            data-car-model="<%= data.userList[i].car_details.model %>"
+                            data-car-year="<%= data.userList[i].car_details.year %>"
+                            data-car-plate-no="<%= data.userList[i].car_details.plateNo %>"
+                            data-appointment-date="<%= data.userList[i].appointment.appointmentDate %>"
+                            data-appointment-time="<%= data.userList[i].appointment.appointmentTime %>"
+                            class="btn btn-primary"
+                            data-toggle="modal"
+                            data-target="#exampleModal"
+                          >
+                            Open modal for @getbootstrap
+                          </button>
+                        </td>
+                        <% } else { %>
+                        <td></td>
+                        <% } %>
+                      </tr>
+                      <% } %>
+                    </tbody>
                   </table>
-              </div>
+                </div>
               </form>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <small id="copyright-white">Copyright &copy; 2023, All Rights Reserved</small>
+
+    <!-- Button trigger modal -->
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-toggle="modal"
+      data-target="#exampleModal"
+    >
+      Open modal for @getbootstrap
+    </button>
+
+    <!-- Modal For Edit Status-->
+
+    <div
+      class="modal fade"
+      id="exampleModal"
+      data-whatever="@getbootstrap"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/update_exam_result" method="post" id="examiner_form">
+              <div class="row">
+                <div class="col-md-6">
+                  <p>
+                    <strong>Full Name:</strong> <span id="full-name"></span>
+                  </p>
+                </div>
+                <div class="col-md-6">
+                  <p>
+                    <strong>Test type:</strong> <span id="test-type"></span>
+                  </p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <p>
+                    <strong>Exam date:</strong> <span id="exam-date"></span>
+                  </p>
+                </div>
+                <div class="col-md-6">
+                  <p>
+                    <strong>Exam time:</strong> <span id="exam-time"></span>
+                  </p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <p><strong>Car Make:</strong> <span id="car-make"></span></p>
+                </div>
+                <div class="col-md-6">
+                  <p>
+                    <strong>Car Model:</strong> <span id="car-model"></span>
+                  </p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <p>
+                    <strong>Plate No:</strong> <span id="car-plateNo"></span>
+                  </p>
+                </div>
+                <div class="col-md-6">
+                  <p><strong>Car Year:</strong> <span id="car-year"></span></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <p><strong>Test Result:</strong></p>
+                </div>
+                <div class="form-check">
+                  <div class="row col-md-12">
+                    <div class="col-md-6">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="flexRadioDefault"
+                        id="flexRadioDefault1"
+                      />
+                      <label class="form-check-label" for="flexRadioDefault1">
+                        Pass
+                      </label>
+                    </div>
+                    <div class="col-md-6">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="flexRadioDefault"
+                        id="flexRadioDefault2"
+                        checked
+                      />
+                      <label class="form-check-label" for="flexRadioDefault2">
+                        Fail
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <label for="message-text" class="col-form-label"
+                    ><strong>Examiner Comment:</strong></label
+                  >
+                  <textarea class="form-control" id="message-text"></textarea>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <button type="button" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End of modal -->
+
+    <footer>
+      <small id="copyright-white"
+        >Copyright &copy; 2023, All Rights Reserved</small
+      >
+    </footer>
+
+    <!-- jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JavaScript library -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script>
+      $("#exampleModal").on("show.bs.modal", function (event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var recipient = button.data("whatever"); // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this);
+        modal.find(".modal-title").text("New message to " + recipient);
+        modal.find(".modal-body input").val(recipient);
+
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var userid = button.data("userid"); // Extract user ID from data-* attribute
+        var testType = button.data("test-type"); // Extract user ID from data-* attribute
+        var fullName = button.data("full-name");
+        var carMake = button.data("car-make");
+        var carModel = button.data("car-model");
+        var carYear = button.data("car-year");
+        var carPlateNo = button.data("car-plate-no");
+        var appointmentDate = button.data("appointment-date");
+        var appointmentTime = button.data("appointment-time");
+
+        // var row = $("tr[data-userid='" + userid + "']"); // Find the row corresponding to the user ID
+        // var name = row.find("td:first").text(); // Get the user's name from the first column of the row
+        // var date = row.find("td:nth-child(2)").text(); // Get the exam date from the second column of the row
+        // var time = row.find("td:nth-child(3)").text(); // Get the exam time from the third column of the row
+        // var type = row.find("td:nth-child(4)").text(); // Get the test type from the fourth column of the row
+        // var result = row.find("td:nth-child(5)").text(); // Get the test result from the fifth column of the row
+        // var comment = row.find("td:nth-child(6)").text(); // Get the examiner comment from the sixth column of the row
+
+        var modal = $(this);
+        modal.find(".modal-title").text("Driver Information");
+        modal.find("#exam-date").text(appointmentDate);
+        modal.find("#exam-time").text(appointmentTime);
+        modal.find("#test-type").text(testType);
+        modal.find("#full-name").text(fullName);
+        modal.find("#car-make").text(carMake);
+        modal.find("#car-model").text(carModel);
+        modal.find("#car-plateNo").text(carPlateNo);
+        modal.find("#car-year").text(carYear);
+        modal.find("#appointment-date").text(appointmentDate);
+        modal.find("#appointment-time").text(appointmentTime);
+      });
+    </script>
   </body>
 </html>

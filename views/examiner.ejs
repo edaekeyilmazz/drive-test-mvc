@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="/images/drive-test.ico" />
     <%-include("./partials/stylesheet.ejs") %>
-    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker3.standalone.css'>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker3.standalone.css"
+    />
     <link rel="stylesheet" href="/css/examiner.css" />
     <title><%= data.title %></title>
   </head>
@@ -22,49 +25,188 @@
           <option value="G">G</option>
           <option value="G2">G2</option>
         </select>
-        <button type="submit">Filter</button>
+        <button type="submit" class="btn btn-filter">Filter</button>
       </form>
       <div class="row">
-          <div class="col-12">
-              <table class="table table-striped">
-                  <thead>
-                      <tr>
-                        <th scope="col">User Name</th>
-                        <th scope="col">Exam Date</th>
-                        <th scope="col">Exam Time</th>
-                        <th scope="col">Test Type</th>
-                          <th scope="col">Select</th>
-                          <!-- <th scope="col">Delete</th> -->
-                      </tr>
-                  </thead>
-                  <!-- <tbody>
-                      <% for(var i=0; i<data.appointmentList.length; i++) {%>
-                          <tr>
-                            <td><%= data.appointmentList[i].firstName + ' ' + data.appointmentList[i].lastName%></td>
-                            <td><%= data.appointmentList[i].appointment.appointmentDate %></td>
-                            <td><%= data.appointmentList[i].appointment.appointmentTime %></td>
-                            <td><%= data.appointmentList[i].testType %></td>
-                            <td><a class="btn btn-success" href="/examiner_edit/<%= data.appointmentList[i].id %>"> View Details </a></td>
-                          </tr>
-                       <% } %>
-                  </tbody> -->
-                  <tbody>
-                    <% for(var i=0; i<data.appointmentList.length; i++) {
-                      const appointment = data.appointmentList[i];
-                      if ((!req.query.testType || req.query.testType === appointment.testType)) { %>
-                      <tr>
-                        <td><%= appointment.firstName + ' ' + appointment.lastName%></td>
-                        <td><%= appointment.appointment.appointmentDate %></td>
-                        <td><%= appointment.appointment.appointmentTime %></td>
-                        <td><%= appointment.testType %></td>
-                        <td><a class="btn btn-success" href="/examiner_edit/<%= appointment.id %>"> View Details </a></td>
-                      </tr>
-                    <% } } %>
-                  </tbody>
-              </table>
-          </div>
+        <div class="col-12">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">User Name</th>
+                <th scope="col">Exam Date</th>
+                <th scope="col">Exam Time</th>
+                <th scope="col">Test Type</th>
+                <th scope="col">Select</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for(var i=0; i<data.appointmentList.length; i++) { const
+              appointment = data.appointmentList[i]; if ((!req.query.testType ||
+              req.query.testType === appointment.testType)) { %>
+              <tr data-userid="<%= data.appointmentList[i]._id %>">
+                <td>
+                  <%= appointment.firstName + ' ' + appointment.lastName%>
+                </td>
+                <td><%= appointment.appointment.appointmentDate %></td>
+                <td><%= appointment.appointment.appointmentTime %></td>
+                <td><%= appointment.testType %></td>
+                <td>
+                  <div class="col-md-12">
+                    <!-- Button trigger modal -->
+                    <button
+                      type="button"
+                      data-userid="<%= data.appointmentList[i]._id %>"
+                      data-test-type="<%= data.appointmentList[i].testType %>"
+                      data-full-name="<%= data.appointmentList[i].firstName + ' ' + data.appointmentList[i].lastName %>"
+                      data-car-make="<%= data.appointmentList[i].car_details.make %>"
+                      data-car-model="<%= data.appointmentList[i].car_details.model %>"
+                      data-car-year="<%= data.appointmentList[i].car_details.year %>"
+                      data-car-plate-no="<%= data.appointmentList[i].car_details.plateNo %>"
+                      data-appointment-date="<%= data.appointmentList[i].appointment.appointmentDate %>"
+                      data-appointment-time="<%= data.appointmentList[i].appointment.appointmentTime %>"
+                      data-test-result="<%= data.appointmentList[i].testResult %>"
+                      data-examiner-comment="<%= data.appointmentList[i].examinerComment %>"
+                      class="btn btn-primary"
+                      data-toggle="modal"
+                      data-target="#exampleModal"
+                    >
+                      User Details
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <% } } %>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-    <small id="copyright-white">Copyright &copy; 2023, All Rights Reserved</small>
+
+    <!-- Modal For Edit Status-->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      data-whatever="@getbootstrap"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form action="/update_exam_result" method="post" id="examiner_form">
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <p>
+                    <strong>Full Name:</strong> <span id="full-name"></span>
+                  </p>
+                </div>
+                <div class="col-md-6">
+                  <p>
+                    <strong>Test type:</strong> <span id="test-type"></span>
+                  </p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <p>
+                    <strong>Exam date:</strong> <span id="exam-date"></span>
+                  </p>
+                </div>
+                <div class="col-md-6">
+                  <p>
+                    <strong>Exam time:</strong> <span id="exam-time"></span>
+                  </p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <p><strong>Car Make:</strong> <span id="car-make"></span></p>
+                </div>
+                <div class="col-md-6">
+                  <p>
+                    <strong>Car Model:</strong> <span id="car-model"></span>
+                  </p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <p>
+                    <strong>Plate No:</strong> <span id="car-plateNo"></span>
+                  </p>
+                </div>
+                <div class="col-md-6">
+                  <p><strong>Car Year:</strong> <span id="car-year"></span></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <p><strong>Test Result:</strong></p>
+                </div>
+                <div class="form-check">
+                  <div class="row col-md-12">
+                    <input type="radio" name="isPass" value="pass" id="rbPass">
+                    <label for="rbPass" id="rbPassLabel">Pass</label>
+                  
+                    <input type="radio" name="isPass" value="fail" id="rbFail">
+                    <label for="rbFail" id="rbFailLabel">Fail</label>
+                  
+                  
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <label for="examinerComment" class="col-form-label"
+                    ><strong>Examiner Comment:</strong></label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="examiner-comment"
+                    name="examinerComment"
+                  ></textarea>
+                  <span class="error-examiner-comment"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-footer justify-content-center">
+              <button type="submit"  id="submit-popup" class="btn btn-primary">Submit</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">
+                Close
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- End of modal -->
+
+    <!-- jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JavaScript library -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="/js/examiner.js"></script>
+
+    <small id="copyright-white"
+      >Copyright &copy; 2023, All Rights Reserved</small
+    >
   </body>
 </html>

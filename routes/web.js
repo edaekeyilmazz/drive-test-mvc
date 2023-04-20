@@ -49,6 +49,7 @@ router.get('/appointment', isValid, isAuthAdmin, UserController.appointment_getC
 router.post('/appointment', isValid, isAuthAdmin, UserController.appointment_postController)
 router.get("/get-available-time-slots/:date/:isTimeSlotAvailable", getAvailableTimeSlots);
 router.get('/exam_result', isValid, isAuthAdmin, UserController.examresult_getController)
+router.post('/update_exam_result', isValid, isAuthExaminer, UserController.updateexamresult_postController)
 
 // EXAMINER
 router.get('/examiner', isValid, isAuthExaminer, UserController.examiner_getController)

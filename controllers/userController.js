@@ -273,7 +273,28 @@ class UserController{
         res.render("exam_result.ejs", { data });
       };
 
-
+      static updateexamresult_postController = async (req,res)=>{
+        const user_data = req.body;
+        const isPass = user_data.isPass == 'pass' ? true : false; 
+        const userInfo = await userModel.findByIdAndUpdate(
+        req.session.userId,
+        {
+            testResult: isPass,
+            examinerComment: user_data.examinerComment
+        },
+        {new: true})
+        .then((return_data) => {
+            console.log("========== User has been updated successfully! ==========");
+            res.redirect('/examiner');
+        })
+        .catch((error) =>{
+            console.log("Error: " + error);
+            console.log("Error message: " + error.message);
+            req.session.error = "Something went wrong while updating user information!";
+            
+            res.redirect('/examiner');
+        });
+    }
       //#endregion EXAMINER METHODS
 
     //#region DASHBOARD METHODS

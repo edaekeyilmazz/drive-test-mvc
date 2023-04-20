@@ -18,25 +18,24 @@ th{
     font-weight: 800 !important;
 }
 
-form label {
+/* form label {
     width: 20%;
-    margin-right: 15px;
+    margin-right: 0px;
     color: black;
     font-family: 'OpenSans-Semibold',sans-serif;
-    font-size: 22px;
     line-height: 110%;
     margin: 0 15px 0 0;
     display: inline-block;
     vertical-align: middle;
-}
+} */
 form select {
-    width: 365px;
+    width: 40%;
     display: inline-block;
     vertical-align: middle;
     margin-right: 30px;
     padding: 12px 20px;
     height: 50px;
-    border-radius: 0;
+    border-radius: 10px;;
     border: 0;
     -webkit-appearance: none;
     font-family: 'OpenSans-Regular',sans-serif;
@@ -46,11 +45,27 @@ form select {
     outline: 0;
     box-shadow: 0px 0px 7.44px 0.56px rgba(0,0,0,0.1);
 }
-button{
+.btn-filter{
 
     width: 10%;
     height: 50px;
-    background: #fff;
-    border: 0;
+    background: #d4d3d3;
+    /* border: 0; */
 
 }
+.modal-dialog {
+    margin: 1rem auto;
+}
+.modal-content{
+    width: 700px;
+}
+.row{
+    margin-bottom:10px;
+}
+.text-success:checked + label:before {
+    background-color: green;
+  }
+  
+  .text-danger:checked + label:before {
+    background-color: red;
+  }
