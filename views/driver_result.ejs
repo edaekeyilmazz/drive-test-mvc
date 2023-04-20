@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/images/drive-test.ico" />
+    <title><%= data.title %></title>
+
+    <%-include("./partials/stylesheet.ejs") %>
+
+    <link
+      rel="stylesheet prefetch"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker3.standalone.css"
+    />
+    <link rel="stylesheet" href="/css/date-picker.css" />
+    <link rel="stylesheet" href="/css/exam_result.css" />
+  </head>
+
+  <body>
+    <%-include("./partials/header.ejs") %>
+    <div class="container">
+      <div class="row">
+        <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+          <div class="panel border bg-white">
+            <div class="panel-body p-3">
+              <form action="/driver_result" method="get">
+                <div class="col-12">
+                  <h1>Exam Results</h1>
+
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">User Name</th>
+                        <th scope="col">Exam Date</th>
+                        <th scope="col">Exam Time</th>
+                        <th scope="col">Test Type</th>
+                        <th scope="col">Test Result</th>
+                        <th scope="col">Examiner Comment</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% for(var i=0; i< data.userList.length; i++) {%>
+                      <tr>
+                        <td>
+                          <%= data.userList[i].firstName + ' ' +
+                          data.userList[i].lastName%>
+                        </td>
+                        <td>
+                          <%= data.userList[i].appointment.appointmentDate %>
+                        </td>
+                        <td>
+                          <%= data.userList[i].appointment.appointmentTime %>
+                        </td>
+                        <td><%= data.userList[i].testType %></td>
+                        <td>
+                          <%= data.userList[i].testResult ? 'Pass' : 'Fail' %>
+                        </td>
+                        <td><%= data.userList[i].examinerComment %></td>
+                        <td></td>
+                        <% } %>
+                      </tr>
+                      <% } %>
+                    </tbody>
+                  </table>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <small id="copyright-white"
+      >Copyright &copy; 2023, All Rights Reserved</small
+    >
+  </body>
+</html>

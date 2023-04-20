@@ -295,6 +295,22 @@ class UserController{
             res.redirect('/examiner');
         });
     }
+      
+      static driverresult_getController = async (req, res) => {
+        
+        const userList = await userModel.find({ testResult: { $exists: true } })
+        .populate('appointment');
+
+        const data = {
+            title: "Exam Results",
+            userList: userList,
+            showErrorMessage: false,
+            showSuccessMessage: false
+        }
+        res.render("driver_result.ejs", { data });
+      };
+
+
       //#endregion EXAMINER METHODS
 
     //#region DASHBOARD METHODS

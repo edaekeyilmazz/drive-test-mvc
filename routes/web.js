@@ -53,7 +53,10 @@ router.post('/update_exam_result', isValid, isAuthExaminer, UserController.updat
 
 // EXAMINER
 router.get('/examiner', isValid, isAuthExaminer, UserController.examiner_getController)
-// router.post('/examiner', isValid, isAuthExaminer, UserController.examiner_postController)
+
+// DRIVER RESULT
+router.get('/driver_result', isValid, isAuthDriver, UserController.driverresult_getController)
+
 
 // SIGNUP
 router.get('/signup', UserController.signup_getController)
