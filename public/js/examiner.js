@@ -60,6 +60,8 @@ $("#exampleModal").on("show.bs.modal", function (event) {
     // check if the input field has a value
     if (examinerComment != '') { // disable the input field
         modal.find("#examiner-comment").prop("disabled", true);
+    } else {
+        modal.find("#examiner-comment").prop("disabled", false);
     }
 
     // Set the selected radio button based on the value of testResult
@@ -82,14 +84,16 @@ $("#exampleModal").on("show.bs.modal", function (event) {
         modal.find('#rbPass').prop('disabled', true);
         modal.find('#submit-popup').prop('disabled', true);
     } else {
-        modal.find('#rbPass').prop('checked', true);
-        modal.find('#rbPass').addClass('text-success');
-        modal.find('#rbPassLabel').addClass('text-success');
-        modal.find('#rbFail').prop('checked', false);
+        modal.find('#rbPass').prop('checked', false);
         modal.find('#rbPass').removeClass('text-success');
-        modal.find('#rbPassLabel').removeClass('text-success');
-        modal.find('#rbFail').prop('disabled', false);
         modal.find('#rbPass').prop('disabled', false);
+        modal.find('#rbPassLabel').removeClass('text-success');
+
+        modal.find('#rbFail').prop('checked', false);
+        modal.find('#rbFail').prop('disabled', false);
+        modal.find('#rbFail').removeClass('text-danger');
+        modal.find('#rbFailLabel').removeClass('text-success');
+
         modal.find('#submit-popup').prop('disabled', false);
     }
 

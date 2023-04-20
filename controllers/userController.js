@@ -246,7 +246,7 @@ class UserController{
       //#region EXAMINER METHODS
       static examiner_getController = async (req, res) => {
             const query = req.query;
-            const appointmentList = await userModel.find({ appointment: { $exists: true } })
+            const appointmentList = await userModel.find({ appointment: { $exists: true }, testResult: false })
             .populate('appointment');
 
             const data = {
@@ -273,6 +273,7 @@ class UserController{
         res.render("exam_result.ejs", { data });
       };
 
+
       static updateexamresult_postController = async (req,res)=>{
         const user_data = req.body;
         const isPass = user_data.isPass == 'pass' ? true : false; 
@@ -296,11 +297,9 @@ class UserController{
         });
     }
       
+     
       static driverresult_getController = async (req, res) => {
-        
-        const userList = await userModel.find({ testResult: { $exists: true } })
-        .populate('appointment');
-
+        const userList = await userModel.findById(req.session.userId).populate('appointment');
         const data = {
             title: "Exam Results",
             userList: userList,

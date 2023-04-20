@@ -1,0 +1,23 @@
+.card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .card-title {
+    margin-bottom: 0;
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  .list-group-item {
+    padding: 0.75rem 1.25rem;
+    border-top: 1px solid #ccc;
+  }
