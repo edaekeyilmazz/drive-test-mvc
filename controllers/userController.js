@@ -246,12 +246,17 @@ class UserController{
       //#region EXAMINER METHODS
       static examiner_getController = async (req, res) => {
             const query = req.query;
-            const appointmentList = await userModel.find({ appointment: { $exists: true }, testResult: false })
+            const appointmentList = await userModel.find({ appointment: { $exists: true }, testResult: null })
             .populate('appointment');
-
+            
+            console.log(req.session.resultSuccessMessage);
+            console.log(req.session.error);
+            
             const data = {
                 title: "Examiner",
                 appointmentList: appointmentList,
+                resultSuccessMessage : req.session.resultSuccessMessage,
+                resultErrorMessage : req.session.error,
                 showErrorMessage: false,
                 showSuccessMessage: false,
                 query: query
@@ -286,6 +291,7 @@ class UserController{
         {new: true})
         .then((return_data) => {
             console.log("========== User has been updated successfully! ==========");
+            req.session.resultSuccessMessage = "You enter exam result successfully!";
             res.redirect('/examiner');
         })
         .catch((error) =>{
