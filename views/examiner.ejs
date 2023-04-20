@@ -37,17 +37,6 @@
                           <!-- <th scope="col">Delete</th> -->
                       </tr>
                   </thead>
-                  <!-- <tbody>
-                      <% for(var i=0; i<data.appointmentList.length; i++) {%>
-                          <tr>
-                            <td><%= data.appointmentList[i].firstName + ' ' + data.appointmentList[i].lastName%></td>
-                            <td><%= data.appointmentList[i].appointment.appointmentDate %></td>
-                            <td><%= data.appointmentList[i].appointment.appointmentTime %></td>
-                            <td><%= data.appointmentList[i].testType %></td>
-                            <td><a class="btn btn-success" href="/examiner_edit/<%= data.appointmentList[i].id %>"> View Details </a></td>
-                          </tr>
-                       <% } %>
-                  </tbody> -->
                   <tbody>
                     <% for(var i=0; i<data.appointmentList.length; i++) {
                       const appointment = data.appointmentList[i];

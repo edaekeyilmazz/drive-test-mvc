@@ -54,6 +54,10 @@ router.get('/exam_result', isValid, isAuthAdmin, UserController.examresult_getCo
 router.get('/examiner', isValid, isAuthExaminer, UserController.examiner_getController)
 // router.post('/examiner', isValid, isAuthExaminer, UserController.examiner_postController)
 
+// DRIVER RESULT
+router.get('/driver_result', isValid, isAuthDriver, UserController.driverresult_getController)
+
+
 // SIGNUP
 router.get('/signup', UserController.signup_getController)
 router.post('/signup', UserController.signup_postController)
